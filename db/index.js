@@ -1,6 +1,6 @@
 const mongoose = require('mongoose')
 
-mongoose.connect('mongodb://localhost:27017/review_app',{
+mongoose.connect(process.env.MONGO_DB_CONNECTION,{
     useNewUrlParser:true,
     useUnifiedTopology:true
 })
