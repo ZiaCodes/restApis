@@ -21,6 +21,16 @@ exports.userVaidator = [
         .withMessage("Password must be 8 to 20 character long")
 ];
 
+exports.validatePassword = [
+    check('newPassword')
+        .trim()
+        .not()
+        .isEmpty()
+        .withMessage("Password can not be empty")
+        .isLength({min: 8, max: 20})
+        .withMessage("Password must be 8 to 20 character long")
+]
+
 exports.validate = (req, res, next) => {
     const error = validationResult(req).array();
 

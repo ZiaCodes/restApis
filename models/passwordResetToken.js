@@ -13,7 +13,7 @@ const passwordResetTokenSchema = mongoose.Schema({
     },
     createdAt:{
         type: Date,
-        expires: 100,
+        expires: 3600,
         default: Date.now()
     }
 });
@@ -27,7 +27,7 @@ passwordResetTokenSchema.pre('save', async function(next){
     next();
 });
 
-passwordResetTokenSchema.methods.compaireToken = async function(token) {
+passwordResetTokenSchema.methods.compareToken = async function(token) {
    const result = await bcrypt.compare(token , this.token);
    return result;
 }

@@ -1,2 +1,4 @@
-# ignore the file 
- /node_module
+# node_module 
+/node_module
+#enviroment Variable
+.env

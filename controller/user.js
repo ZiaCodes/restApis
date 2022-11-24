@@ -68,7 +68,7 @@ exports.verifyEmail = async (req,res) =>{
   if(!token) 
     return sendError(res, "Token not found");
 
-  const isMatched = await token.compaireToken(OTP)
+  const isMatched = await token.compareToken(OTP)
 
   if(!isMatched) 
     return sendError(res,"Please submit a valid OTP!");
@@ -158,7 +158,7 @@ exports.forgetPassword = async(req,res) => {
 
   const resetPasswordUrl = `http://localhost:3000/reset-password?token=${token}&id=${user._id}`;
 
-  //Send to user OTP
+  //Send to email
   var transport = generateMailTransporter();
    
   transport.sendMail({
@@ -172,7 +172,7 @@ exports.forgetPassword = async(req,res) => {
     <p>If the above link doesn't work please
       copy paste the below link into your
       browser </p>
-      <a href=${resetPasswordUrl}> ${resetPasswordUrl} </a>
+      <p> ${resetPasswordUrl} </p>
       <br>
       <p> <b> Note : </b>This Link is Valid for one hour only. </p>
       <p> Thank You<p>
@@ -182,3 +182,44 @@ exports.forgetPassword = async(req,res) => {
   res.json({message: "Passwrd reset Link has been sent to your email account !"});
 
 };
+
+
+exports.sendResetPasswordTokenStatus = (req,res)=>{
+  res.json({valid: true})
+}
+
+
+
+exports.resetPassword = async(req,res) =>{
+  const {newPassword, userId} = req.body
+  const user = await User.findById(userId);
+  const matched = await user.comparePassword(newPassword);
+
+  if(matched)
+    return sendError(res , "New Password must be different from the old password.");
+
+  user.password = newPassword;
+  await user.save();
+
+  await passwordResetToken.findByIdAndDelete(req.resetToken._id);
+
+  //Send to email
+  var transport = generateMailTransporter();
+   
+  transport.sendMail({
+    from: "security@reviewapp.com",
+    to: user.email,
+    subject:"Password Reset successfully",
+    html:`
+    <p>You password has been changed Successfully. </p>
+    <p>Now, You Login with your new password. </p>
+    <br>
+    <p>Thank You<p>
+    `,
+  });
+
+  res.json({message: " Reset password is successfully."})
+
+
+
+}

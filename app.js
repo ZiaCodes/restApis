@@ -25,5 +25,5 @@ app.use('/api/user', userRouter);
 
 //listning
 app.listen(PORT,()=>{
-    console.log(`Server is running at https://localhost:${PORT}`);
+    console.log(`🚀 Server is running at https://localhost:${PORT}`);
 })

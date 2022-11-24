@@ -5,8 +5,8 @@ mongoose.connect('mongodb://localhost:27017/review_app',{
     useUnifiedTopology:true
 })
     .then(()=>{
-        console.log("Db Connected Successfully.");
+        console.log("😍 Db Connected Successfully.");
     })
     .catch((err) => {
-        console.log("Db failed to Connect", err);
+        console.log("😓 Db failed to Connect", err);
     })
