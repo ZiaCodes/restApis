@@ -1,4 +1,5 @@
 const User = require('../models/user');
+const jwt = require('jsonwebtoken');
 const EmailVerificationToken = require('../models/emailVerificationToken');
 const passwordResetToken = require('../models/passwordResetToken');
 const { isValidObjectId } = require('mongoose');
