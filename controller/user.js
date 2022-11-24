@@ -192,7 +192,7 @@ exports.sendResetPasswordTokenStatus = (req,res)=>{
 
 
 exports.resetPassword = async(req,res) =>{
-  const {newPassword, userId} = req.body
+  const {newPassword, userId} = req.body 
   const user = await User.findById(userId);
   const matched = await user.comparePassword(newPassword);
 

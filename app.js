@@ -1,5 +1,7 @@
 const express = require('express');
 const morgan = require('morgan');
+const { errorHandler } = require('./middleware/errorhandler');
+require('express-async-errors');
 require('dotenv').config();
 require('./db')
 const app = express()
@@ -25,6 +27,10 @@ const userRouter = require('./routes/user')
 
 //prefix Api
 app.use('/api/user', userRouter);
+
+
+//async error handling
+app.use(errorHandler);
 
 //listning
 app.listen(PORT,()=>{
