@@ -85,12 +85,6 @@ Distributed under the MIT License. See `LICENSE` for more information.
 
 
 
-<!-- CONTACT -->
-## Follow us on github
-* [ZiaCodes](https://github.com/ziacodes)
-* [ekta.py](https://github.com/ekta-py)
-
-
 
 
 
